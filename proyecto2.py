@@ -1,3 +1,5 @@
+#actualizacion del proyecto con implementacion de generacion de neemigos y deciones aleatoriamente
+
 import pygame
 from random import randint
 #Dibuja triangulo y lo escala con el teclado
