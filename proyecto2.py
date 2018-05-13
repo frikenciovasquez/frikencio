@@ -155,7 +155,7 @@ if __name__ == '__main__':
     todos.add(j2)
     #enemigos
     enemigos=pygame.sprite.Group()
-    cantidad_enemigos1= 4 #randint(5,20)
+    cantidad_enemigos1= 2 #randint(5,20)
     for i in range(cantidad_enemigos1):
             e1=Enemigo1()
             todos.add(e1)
@@ -217,8 +217,9 @@ if __name__ == '__main__':
                     j.accion=1
                     j.i=0
 
-                elif j2.rect.y<=10 and pos_y<0:
-                    print pos_y
+                if event.key==pygame.K_c:
+                    j2.accion=2
+                    j2.i=0
 
 
             if event.type== pygame.KEYUP:
@@ -227,6 +228,7 @@ if __name__ == '__main__':
                 j2.vel_y=0
                 j2.vel_x=0
                 j.accion=0
+                j2.accion=0
         if cantidad_enemigos1<=5:
             if j.rect.x>=(ANCHO-300)and pos_x>=-1000:
                 pos_x-=10
@@ -267,20 +269,40 @@ if __name__ == '__main__':
 
 #-------------------------------------------------------------------------
         ls_col=pygame.sprite.spritecollide(j,enemigos,False)
+        ls_col2=pygame.sprite.spritecollide(j2,enemigos,False)
+        print 'colison1', ls_col
+        print 'colision2', ls_col2
         #print ls_col
         if j.accion==1:
             #print '111111'
 
             for e in ls_col:
-                if e1.rect.center>=(j.rect.bottom-25):
-                    while e1.salud>0:
-                        e1.salud-=10
+                if e1.rect.center>=(j.rect.left-25):
+                    e1.salud-=10
+                    if e1.salud<0:
                         if e1.salud<=0:
                             enemigos.remove(e1)
                             todos.remove(e1)
 
 
                     e1.rect.x+=10
+
+        if j2.accion==2:
+            #print '111111'
+
+            for e in ls_col2:
+                if e1.rect.center>=(j2.rect.left-25):
+                    e1.salud-=10
+                    if e1.salud<0:
+                        if e1.salud<=0:
+                            enemigos.remove(e1)
+                            todos.remove(e1)
+
+
+                    e1.rect.x+=10
+
+
+
 
                     ''' colison enemigo jugador
         if (e1.rect.x+25)==(j.rect.x+25):
